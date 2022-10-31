@@ -7,7 +7,6 @@ import com.tinto.waracletestapp.model.CakeDataModel
 import com.tinto.waracletestapp.repository.CakesRepository
 import com.tinto.waracletestapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +25,7 @@ class CakesViewModel @Inject constructor(
 
     /* initiating network call to pull the cakes data */
     fun getCakesData() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             val responseData = cakesRepository.getSearchedImage()
             if (responseData is Resource.Success) {
                 responseData.data?.distinct()?.sortedBy { it.title }?.let {
@@ -35,6 +34,7 @@ class CakesViewModel @Inject constructor(
                     }
             } else {
                 isLoading.postValue(false)
+                // TODO update this approach
                 networkError.postValue("Error in fetching data")
             }
 

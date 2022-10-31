@@ -65,9 +65,10 @@ class CakesActivity : AppCompatActivity(), CakeItemClick {
         showDescriptionDialog(cakeDataModel.desc)
     }
 
-    /* Show alert dialog with cake description / error dialog*/
+    /* Show alert dialog with cake description error dialog */
     private fun showDescriptionDialog(description: String) {
-        val alertDialog: android.app.AlertDialog = android.app.AlertDialog.Builder(this@CakesActivity).create()
+        val alertDialog: android.app.AlertDialog =
+            android.app.AlertDialog.Builder(this@CakesActivity).create()
         alertDialog.setMessage(description)
         alertDialog.show()
     }
