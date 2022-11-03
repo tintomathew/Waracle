@@ -60,30 +60,38 @@ class CakesViewModelTest {
     }
 
     @Test
-    fun testCakeResponseTest() {
-        val bananaModel = CakeDataModel(
+    fun filteredCakeResponseTest() {
+        val firstItem = CakeDataModel(
             title = "Banana cake",
             desc = "Donkey kongs favourite",
             image = "http://ukcdn.ar-cdn.com/recipes/xlarge/ff22df7f-dbcd-4a09-81f7-9c1d8395d936.jpg"
         )
-        coEvery { cakesRepository.getSearchedImage() } returns Resource.Success(listOf(bananaModel))
+        val response = listOf(
+            CakeDataModel(
+                title ="victoria sponge",
+                desc = "sponge with jam",
+                image = "https://upload.wikimedia.org/wikipedia/commons/0/05/111rfyh.jpg"
+        ),
+            firstItem
+        )
+        coEvery { cakesRepository.getSearchedImage() } returns Resource.Success(response)
         coroutinesTestRule.testDispatcher.runBlockingTest {
             viewModel.getCakesData()
             Assert.assertEquals(
-                "network error test failed" + viewModel.response.value?.size,
+                "filteredCakeResponse test failed" + viewModel.response.value?.size,
                 viewModel.response.value?.get(0),
-                bananaModel
+                firstItem
             )
         }
     }
 
     @Test
-    fun testCakeErrorResponseTest() {
+    fun cakeErrorResponseTest() {
         coEvery { cakesRepository.getSearchedImage() } returns Resource.Error("")
         coroutinesTestRule.testDispatcher.runBlockingTest {
             viewModel.getCakesData()
             Assert.assertEquals(
-                "network error test failed" + viewModel.networkError.value,
+                "cakeErrorResponse test failed" + viewModel.networkError.value,
                 "Error in fetching data",
                 viewModel.networkError.value
             )

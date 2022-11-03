@@ -40,7 +40,7 @@ class CakesRepositoryTest {
     }
 
     @Test
-    fun testCakeSuccessTest() {
+    fun cakeSuccessTest() {
         val bananaModel = CakeDataModel(
             title = "Banana cake",
             desc = "Donkey kongs favourite",
@@ -54,7 +54,7 @@ class CakesRepositoryTest {
     }
 
     @Test
-    fun testCakeErrorTest() {
+    fun cakeErrorTest() {
         coEvery { cakesApiService.getSearchedImage() } returns Response.error(
             400,
             "{\"key\":[\"error\"]}"
@@ -62,7 +62,7 @@ class CakesRepositoryTest {
         )
         runBlocking {
             val response = cakesRepository.getSearchedImage()
-            Assert.assertTrue("testCakeSuccess test failed", response is Resource.Error)
+            Assert.assertTrue("cakeError message test failed", response is Resource.Error)
         }
     }
 }
