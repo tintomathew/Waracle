@@ -75,7 +75,7 @@ class CakesViewModelTest {
             firstItem
         )
         coEvery { cakesRepository.getSearchedImage() } returns Resource.Success(response)
-        coroutinesTestRule.testDispatcher.runBlockingTest {
+        coroutinesTestRule.testDispatcher.run {
             viewModel.getCakesData()
             Assert.assertEquals(
                 "filteredCakeResponse test failed" + viewModel.response.value?.size,
@@ -88,7 +88,7 @@ class CakesViewModelTest {
     @Test
     fun cakeErrorResponseTest() {
         coEvery { cakesRepository.getSearchedImage() } returns Resource.Error("")
-        coroutinesTestRule.testDispatcher.runBlockingTest {
+        coroutinesTestRule.testDispatcher.run {
             viewModel.getCakesData()
             Assert.assertEquals(
                 "cakeErrorResponse test failed" + viewModel.networkError.value,
