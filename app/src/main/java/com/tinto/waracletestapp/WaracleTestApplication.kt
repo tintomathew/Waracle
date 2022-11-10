@@ -5,4 +5,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class WaracleTestApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+    }
 }

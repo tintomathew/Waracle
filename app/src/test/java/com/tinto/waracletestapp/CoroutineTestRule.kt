@@ -9,7 +9,6 @@ import kotlinx.coroutines.test.*
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-// TODO update this with latest approach
 @ExperimentalCoroutinesApi
 class CoroutineTestRule(val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()) : TestWatcher() {
 
